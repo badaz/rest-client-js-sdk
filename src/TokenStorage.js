@@ -1,13 +1,26 @@
+// @flow
+import AbstractTokenGenerator from './TokenGenerator/AbstractTokenGenerator';
+
 const ACCESS_TOKEN_KEY = 'rest_client_sdk.api.access_token';
 
+type AsyncStorage = {
+  getItem: (key: string) => Promise<string>,
+  setItem: (key: string, value: string) => Promise<void>,
+  removeItem: (key: string) => Promise<void>,
+}
+
 class TokenStorage {
-  constructor(tokenGenerator, asyncStorage) {
+  _asyncStorage: AsyncStorage;
+  _tokenGenerator: AbstractTokenGenerator;
+  _hasATokenBeenGenerated: boolean;
+
+  constructor(tokenGenerator: AbstractTokenGenerator, asyncStorage: AsyncStorage) {
     this._tokenGenerator = tokenGenerator;
     this._hasATokenBeenGenerated = false;
     this.setAsyncStorage(asyncStorage);
   }
 
-  setAsyncStorage(asyncStorage) {
+  setAsyncStorage(asyncStorage: AsyncStorage) {
     this._asyncStorage = asyncStorage;
   }
 
@@ -40,7 +53,7 @@ class TokenStorage {
     return this._asyncStorage.removeItem(ACCESS_TOKEN_KEY);
   }
 
-  generateToken(parameters) {
+  generateToken(parameters: ?{}) {
     this._hasATokenBeenGenerated = true;
     return this._tokenGenerator.generateToken(parameters)
       .then(responseData =>
@@ -50,7 +63,7 @@ class TokenStorage {
     ;
   }
 
-  refreshToken(parameters) {
+  refreshToken(parameters: ?{}) {
     return this._asyncStorage.getItem(ACCESS_TOKEN_KEY)
       .then(token =>
         this._tokenGenerator
@@ -63,7 +76,7 @@ class TokenStorage {
     ;
   }
 
-  _storeAccessToken(responseData) {
+  _storeAccessToken(responseData: any) {
     return this._asyncStorage
       .setItem(ACCESS_TOKEN_KEY, JSON.stringify(responseData))
     ;

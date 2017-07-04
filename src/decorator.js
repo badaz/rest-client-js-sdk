@@ -1,8 +1,13 @@
+// @flow
+/* eslint-disable import/prefer-default-export */
+
 // memoize promise returning function so that it returns
 // the same promise if called again before resolve / reject
-export function memoizePromise(callback) {
+type MemoizedPromise = (parameters: Array<any>) => Promise<any>;
+
+export function memoizePromise(callback: MemoizedPromise) {
   const cache = {};
-  function memoized(...parameters) {
+  function memoized(...parameters: any) {
     const cacheKey = JSON.stringify(parameters);
 
     if (cache[cacheKey]) {

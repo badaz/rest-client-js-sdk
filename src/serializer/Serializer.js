@@ -1,3 +1,4 @@
+// @flow
 /* eslint no-unused-vars: 0 */
 
 class Serializer {
@@ -7,7 +8,7 @@ class Serializer {
    * @param {string} type - The result of the `getName` method of the Repository
    * @return {string} the content of the request
    */
-  serializeItem(entity, type) {
+  serializeItem(entity: any, type: string) {
     throw new TypeError('`serializeItem` method must be implemented');
   }
 
@@ -17,7 +18,7 @@ class Serializer {
    * @param {string} type - The result of the `getName` method of the Repository
    * @return {any} an entity
    */
-  deserializeItem(rawData, type) {
+  deserializeItem(rawData: string, type: string) {
     throw new TypeError('`deserializeItem` method must be implemented');
   }
 
@@ -27,7 +28,7 @@ class Serializer {
    * @param {string} type - The result of the `getName` method of the Repository
    * @return {any} a list of entities
    */
-  deserializeList(rawListData, type) {
+  deserializeList(rawListData: string, type: string) {
     throw new TypeError('`deserializeList` method must be implemented');
   }
 }

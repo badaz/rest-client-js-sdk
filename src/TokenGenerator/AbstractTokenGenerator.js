@@ -1,25 +1,33 @@
+// @flow
+/* eslint no-unused-vars: 0 */
+
+type TokenPromise = Promise<any>;
+
 class AbstractTokenGenerator {
-  constructor(tokenGeneratorConfig = {}) {
+  tokenGeneratorConfig: {};
+  canAutogenerateToken: boolean;
+
+  constructor(tokenGeneratorConfig: {}) {
     this.tokenGeneratorConfig = tokenGeneratorConfig;
     this.canAutogenerateToken = false;
     this.checkTokenGeneratorConfig(this.tokenGeneratorConfig);
   }
 
-  generateToken(parameters) {
+  generateToken(parameters: ?{}): TokenPromise {
     throw new Error(`AbstractTokenGenerator::generateToken can not be called directly.
                     You must implement "generateToken" method.`);
   }
 
-  refreshToken(accessToken, parameters) {
+  refreshToken(accessToken: {}, parameters: ?{}): TokenPromise {
     throw new Error(`AbstractTokenGenerator::refreshToken can not be called directly.
                     You must implement "refreshToken" method.`);
   }
 
-  checkTokenGeneratorConfig(config) {
+  checkTokenGeneratorConfig(config: {}): boolean {
     return true;
   }
 
-  convertMapToFormData(parameters) {
+  convertMapToFormData(parameters: {}): FormData {
     const keys = Object.keys(parameters);
 
     const formData = new FormData();
