@@ -16,13 +16,17 @@ export default {
       exclude: 'node_modules/**',
       babelrc: false,
       presets: [
-        ['latest', {
-          es2015: {
-            modules: false,
+        'flow',
+        [
+          'latest',
+          {
+            es2015: {
+              modules: false,
+            },
           },
-        }],
+        ],
       ],
-      plugins: ['external-helpers'],
+      plugins: ['external-helpers', 'transform-class-properties'],
     }),
   ],
   targets: [

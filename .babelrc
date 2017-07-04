@@ -2,5 +2,8 @@
   "presets": [
     "flow",
     "latest"
+  ],
+  "plugins": [
+    "transform-class-properties"
   ]
 }
