@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "clean": "rimraf dist",
-    "test": "bundlesize && mocha --compilers js:babel-register --require ./test/test_helper.js  --recursive",
+    "test": "bundlesize && flow check && mocha --compilers js:babel-register --require ./test/test_helper.js  --recursive",
     "test:watch": "npm run test -- --watch",
     "build": "rollup -c",
     "check:src": "npm run test",

@@ -1,10 +1,15 @@
+// @flow
 /* global fetch */
 import AbstractTokenGenerator from './AbstractTokenGenerator';
 
-class ProvidedTokenGenerator extends AbstractTokenGenerator {
+type Callback = () => Promise<any>;
 
-  constructor(token, refreshTokenFunc = null) {
-    super();
+class ProvidedTokenGenerator extends AbstractTokenGenerator {
+  _token: string;
+  _refreshTokenFunc: ?Callback;
+
+  constructor(token: string, refreshTokenFunc: ?Callback) {
+    super({});
     this._token = token;
     this.canAutogenerateToken = true;
     this._refreshTokenFunc = refreshTokenFunc;

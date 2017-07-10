@@ -5,7 +5,7 @@
 // the same promise if called again before resolve / reject
 type MemoizedPromise = (parameters: Array<any>) => Promise<any>;
 
-export function memoizePromise(callback: MemoizedPromise) {
+export function memoizePromise(callback: MemoizedPromise): MemoizedPromise {
   const cache = {};
   function memoized(...parameters: any) {
     const cacheKey = JSON.stringify(parameters);
